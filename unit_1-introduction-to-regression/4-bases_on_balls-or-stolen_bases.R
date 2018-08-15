@@ -53,6 +53,13 @@ Teams %>% filter(yearID %in% 1961:2001) %>%
 # in fact, it's home runs that are causing both. This is called
 # CONFOUNDING.
 
+# From the exercises, calculating at bats per game
+
+Teams %>% filter(yearID %in% 1961:2001 ) %>%
+  mutate(AB_per_game = AB/G, R_per_game = R/G) %>%
+  ggplot(aes(AB_per_game, R_per_game)) + 
+  geom_point(alpha = 0.5)
+
 # Linear regression will help us parse all this out and quantify the associations.
 # This will then help us determine what players to recruit.
 # Specifically, we will try to predict things
