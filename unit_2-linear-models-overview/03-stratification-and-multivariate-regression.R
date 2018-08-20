@@ -36,11 +36,11 @@ dat %>%
   geom_smooth(method = "lm") +
   facet_wrap(~HR_strata)
 
-# Remember that the regression slope for predicting runs with bases
-# on balls when we ignore home runs was 0.735. But once we stratify by home
-# runs, these slopes are substantially reduced. We can actually see what the
-# slopes are by using this code. We stratify by home run and then compute the
-# slope using the formula that we showed you previously. 
+# Remember that the regression slope for predicting runs with bases on balls
+# when we ignore home runs was 0.735. But once we stratify by home runs, these
+# slopes are substantially reduced. We can actually see what the slopes are by
+# using this code. We stratify by home run and then compute the slope using the
+# formula that we showed you previously.
 
 dat %>%
   group_by(HR_strata) %>%
@@ -62,7 +62,7 @@ dat %>%
 # Which is more consistent with our intuition. Since both singles and bases on
 # ball get us to first base, they should have about the same predictive power.
 
-# Now, although our understanding of the application-- our understanding of
+# Now, although our understanding of the application--our understanding of
 # baseball-- tells us that home runs cause bases on balls and not the other way
 # around, we can still check if, after stratifying by base on balls, we still
 # see a home run effect or if it goes down. We use the same code that we just
@@ -89,7 +89,7 @@ dat %>%
 # A tibble: 12 x 2
 # BB_strata slope
 # <dbl> <dbl>
-#   1       2.8  1.53
+#  1       2.8  1.53
 #  2       2.9  1.57
 #  3       3    1.52
 #  4       3.1  1.49
@@ -102,18 +102,18 @@ dat %>%
 # 11       3.8  1.70
 # 12       3.9  1.30
 
-# You can see they are all around 1.5, 1.6,
-# 1.7. So they do not change that much from the original slope estimate, which
-# was 1.84. Regardless, it seems that if we stratify by home runs, we have an
-# approximately bivariate normal distribution for runs versus bases on balls.
-# Similarly, if we stratify by bases on balls, we have an approximately normal
-# bivariate distribution for runs versus home runs. 
+# You can see they are all around 1.5, 1.6, 1.7. So they do not change that much
+# from the original slope estimate, which was 1.84. Regardless, it seems that if
+# we stratify by home runs, we have an approximately bivariate normal
+# distribution for runs versus bases on balls. Similarly, if we stratify by
+# bases on balls, we have an approximately normal bivariate distribution for
+# runs versus home runs.
 
 # So what do we do? It is somewhat complex to be computing regression lines for
 # each strata. We're essentially fitting this model that you can see in this
 # equation
 
-# e[r | bb = X1, HR = x2] = B0 + B1(x2)x1 + B2(x1)x2
+# E|R | BB = x1, HR = x2] = B0 + B1(x2)x1 + B2(x1)x2
 
 # with the slopes for x1 changing for different values of x2 and vice versa.
 # Here, x1 is bases on balls. And x2 are home runs. Is there an easier approach?
@@ -135,3 +135,15 @@ dat %>%
 # If this model is correct, then confounding has been accounted for. But how do
 # we estimate beta 1 and beta 2 from the data? For this, we'll learn about
 # linear models and least squares estimates.
+
+# ------------------------------------------------------------------------
+# EXERCISES
+# ------------------------------------------------------------------------
+# Question 1
+# 1/1 point (graded)
+# As described in the video, when we stratified our regression lines for runs
+# per game vs. bases on balls by the number of home runs, what happened?
+# The slope of runs per game vs. bases on balls within each stratum was reduced because we removed confounding by home runs. [CORRECT]
+# The slope of runs per game vs. bases on balls within each stratum was reduced because there were fewer data points.
+# The slope of runs per game vs. bases on balls within each stratum increased after we removed confounding by home runs.
+# The slope of runs per game vs. bases on balls within each stratum stayed about the same as the original slope.
