@@ -93,7 +93,7 @@ ds_theme_set()
 # parameter more interpretable, we can rewrite the model slightly in the
 # following way.
 
-#                   Yi = B0 + B1(xi - x) + Ei, i = 1, ..., N
+#       Yi = B0 + B1(xi - x) + Ei, i = 1, ..., N
 
 # Here, we have changed xi to xi minus the average height x bar. We have
 # centered our covariate xi. In this case, beta 0, the intercept, would be the

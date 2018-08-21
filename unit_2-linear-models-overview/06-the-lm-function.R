@@ -82,11 +82,14 @@ install.packages("Lahman")
 library(Lahman) # Contains all the baseball statistics
 ds_theme_set()
 
-Teams %>% filter(yearID %in% 1961:2001) %>%
-  mutate(R_per_game = R/G, BB_per_game = BB/G) %>%
-  ggplot(aes(BB_per_game, R_per_game)) +
-  geom_point(alpha = 0.5)
+x <- Teams %>% filter(yearID %in% 1961:2001) 
+head(x)
 
-fit <- lm(R_per_game ~ BB_per_game, data = Teams)
+# %>%
+#   mutate(R_per_game = R/G, BB_per_game = BB/G) %>%
+#   ggplot(aes(BB_per_game, R_per_game)) +
+#   geom_point(alpha = 0.5)
+
+fit <- lm(R ~ BB, data = x)
 fit
 summary(fit)
