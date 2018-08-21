@@ -15,26 +15,24 @@ library(HistData)
 
 data("GaltonFamilies")
 
-# When a pair of random variables is approximated
-# by a bivariate normal distribution, the scatterplot
-# looks like ovals, like American footballs. They can be thin.
-# That's when they have high correlation. All the way up to a 
+# When a pair of random variables is approximated by a bivariate normal
+# distribution, the scatterplot looks like ovals, like American footballs. They
+# can be thin. That's when they have high correlation. All the way up to a
 # circle shape when they have no correlation.
 
-# A more technical way to define the bivariate normal distribution
-# is the following. First, this distribution is defined for pairs.
-# So we have two variables, x and y. And they have paired values.
-# They are going to be bivariate normally distributed if the following 
-# happens. If x is a normally distributed random variable, and y is 
-# also a normally distributed random variable--and for any grouping of 
-# x that we can define, say, with x being equal to some predetermined 
-# value, which we call here in this formula little x--  then the y's 
-# in that group are approximately normal as well.
+# A more technical way to define the bivariate normal distribution is the
+# following. First, this distribution is defined for pairs. So we have two
+# variables, x and y. And they have paired values. They are going to be
+# bivariate normally distributed if the following happens. If x is a normally
+# distributed random variable, and y is also a normally distributed random
+# variable--and for any grouping of x that we can define, say, with x being
+# equal to some predetermined value, which we call here in this formula little
+# x--  then the y's in that group are approximately normal as well.
 
-# When we fix x in this way, we then refer to the resulting distribution
-# of the y's in the group--defined by setting x in this way--as the 
-# conditional distribution of y given x. We write the notation like this 
-# for the conditional distribution and the conditional expectation.
+# When we fix x in this way, we then refer to the resulting distribution of the
+# y's in the group--defined by setting x in this way--as the conditional
+# distribution of y given x. We write the notation like this for the conditional
+# distribution and the conditional expectation.
 
 # fY|X=x is the conditional distribution
 
@@ -68,8 +66,7 @@ galton_heights %>%
 
 # E(Y|X = x) - uy + p((X - ux) / (ox))oy
 
-# Note that this is a line with slope rho times sigma y divided by sigma 
-# x 
+# Note that this is a line with slope rho times sigma y divided by sigma x
 
 # Slope: p(oy / ox)
 
@@ -85,4 +82,3 @@ galton_heights %>%
 # So in summary, if our data is approximately bivariate, then the conditional
 # expectation--which is the best prediction for y given that we know the 
 # value of x--is given by the regression line.
-
