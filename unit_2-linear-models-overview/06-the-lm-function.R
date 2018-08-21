@@ -83,13 +83,11 @@ library(Lahman) # Contains all the baseball statistics
 ds_theme_set()
 
 x <- Teams %>% filter(yearID %in% 1961:2001) 
-head(x)
+x
 
 # %>%
 #   mutate(R_per_game = R/G, BB_per_game = BB/G) %>%
 #   ggplot(aes(BB_per_game, R_per_game)) +
 #   geom_point(alpha = 0.5)
 
-fit <- lm(R ~ BB, data = x)
-fit
-summary(fit)
+lm(R/G ~ HR/BB, data = x)
