@@ -76,18 +76,39 @@ summary(fit)
 #
 # What is the coefficient for bases on balls?
 
+library(tidyverse)
 library(dslabs)
 library(ggplot2)
 install.packages("Lahman")
 library(Lahman) # Contains all the baseball statistics
 ds_theme_set()
 
-x <- Teams %>% filter(yearID %in% 1961:2001) 
-x
+x <- Teams %>% filter(yearID %in% 1961:2001) %>%
+  mutate(HR_per_game = HR/G, R_per_game = R/G, BB_per_game = BB/G)
 
-# %>%
-#   mutate(R_per_game = R/G, BB_per_game = BB/G) %>%
-#   ggplot(aes(BB_per_game, R_per_game)) +
-#   geom_point(alpha = 0.5)
+fit <- lm(R_per_game ~ BB_per_game, data = x)
+fit
+summary(fit)
+fit <-lm(HR_per_game ~ BB_per_game, data = x)
+fit
+summary(fit)
 
-lm(R/G ~ HR/BB, data = x)
+fit <- lm(R_per_game ~ BB, data = x)
+fit
+summary(fit)
+fit <-lm(HR_per_game ~ BB, data = x)
+fit
+summary(fit)
+
+lm(HR_per_game ~ BB, data = x)
+lm(R_per_game ~ HR_per_game, data = x)
+
+
+lm(R_per_game ~ BB, data = x)
+lm(HR_per_game ~ BB, data = x)
+
+lm(R_per_game ~ BB, data = x)
+lm(HR_per_game ~ BB, data = x)
+lm(R_per_game ~ HR_per_game, data = x)
+
+
