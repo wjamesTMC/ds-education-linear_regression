@@ -86,29 +86,13 @@ ds_theme_set()
 x <- Teams %>% filter(yearID %in% 1961:2001) %>%
   mutate(HR_per_game = HR/G, R_per_game = R/G, BB_per_game = BB/G)
 
-fit <- lm(R_per_game ~ BB_per_game, data = x)
+fit <- lm(R_per_game ~ (BB_per_game + HR_per_game), data = x)
 fit
-summary(fit)
-fit <-lm(HR_per_game ~ BB_per_game, data = x)
-fit
-summary(fit)
 
-fit <- lm(R_per_game ~ BB, data = x)
-fit
-summary(fit)
-fit <-lm(HR_per_game ~ BB, data = x)
-fit
-summary(fit)
-
-lm(HR_per_game ~ BB, data = x)
-lm(R_per_game ~ HR_per_game, data = x)
-
-
-lm(R_per_game ~ BB, data = x)
-lm(HR_per_game ~ BB, data = x)
-
-lm(R_per_game ~ BB, data = x)
-lm(HR_per_game ~ BB, data = x)
-lm(R_per_game ~ HR_per_game, data = x)
-
+# Call:
+#   lm(formula = R_per_game ~ (BB_per_game + HR_per_game), data = x)
+# 
+# Coefficients:
+#   (Intercept)  BB_per_game  HR_per_game  
+#        1.7444       0.3874       1.5611 
 
