@@ -84,4 +84,3 @@ galton_heights %>% summarize(cor(father,son))
 # As x increases, y decreases. When the correlation gets either closer to 1 or
 # negative 1, we see the clot of points getting thinner and thinner. When the
 # correlation is 0, we just see a big circle of points.
-

@@ -17,6 +17,10 @@ install.packages("HistData")  # Contains all the heights data
 library(HistData)
 
 data("GaltonFamilies")
+galton_heights <- GaltonFamilies %>%
+  filter(childNum == 1 & gender == "male") %>%
+  select(father, childHeight) %>%
+  rename(son = childHeight)
 
 # The LSE are derived from the data, Y1 through Yn, which are random. This
 # implies that our estimates are random variables. To see this, we can run a
@@ -41,6 +45,7 @@ lse
 library(dplyr)
 library(dslabs)
 library(grid)
+install.packages("gridExtra")
 library(gridExtra)
 p1 <- lse %>% ggplot(aes(beta_0)) + geom_histogram(binwidth = 5, color = "black")
 p2 <- lse %>% ggplot(aes(beta_1)) + geom_histogram(binwidth = 0.1, color = "black")
@@ -51,10 +56,10 @@ grid.arrange(p1, p2, ncol = 2)
 # as well. For large enough N, the least squares estimates will be approximately
 # normal with expected value beta 0 and beta 1 respectively.
 
-The standard errors are a bit complicated to compute,
-but mathematical theory does allow us to compute them,
-and they are included in the summary provided by the lm() function.
-Here are the estimated standard errors for one of our simulated data sets.
+# The standard errors are a bit complicated to compute, but mathematical theory
+# does allow us to compute them, and they are included in the summary provided
+# by the lm() function. Here are the estimated standard errors for one of our
+# simulated data sets.
 
 sample_n(galton_heights, N, replace = TRUE) %>%
   lm(son ~ father, data = .) %>% summary
@@ -105,3 +110,26 @@ sample_n(galton_heights, N, replace = TRUE) %>%
 # was statistically significant after adjusting for X, Y, and Z. But it's very
 # important to note that several assumptions-- we just described some of them--
 # have to hold for these statements to hold.
+
+# Advanced Note on LSE
+# 
+# Although interpretation is not straight-forward, it is also useful to know
+# that the LSE can be strongly correlated, which can be seen using this code:
+  
+lse %>% summarize(cor(beta_0, beta_1))
+ 
+# However, the correlation depends on how the predictors are defined or
+# transformed. Here we standardize the father heights, which changes xi to
+# xi - x.
+
+B <- 1000
+N <- 50
+lse <- replicate(B, {
+  sample_n(galton_heights, N, replace = TRUE) %>%
+    mutate(father = father - mean(father)) %>%
+    lm(son ~ father, data = .) %>% .$coef 
+})
+ 
+# Observe what happens to the correlation in this case:
+   
+cor(lse[1,], lse[2,]) 

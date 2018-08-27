@@ -59,7 +59,7 @@ galton_heights %>%
   facet_wrap(~z_father)
 
 # Now, we come back to defining correlation. Galton showed-- using
-# mathematical statistics--  that when two variables follow a bivariate
+# mathematical statistics--that when two variables follow a bivariate
 # normal distribution, then for any given x the expected value of the 
 # y in pairs for which x is set at that value is mu y plus rho x minus mu
 # x divided by sigma x times sigma y.

@@ -9,7 +9,7 @@
 # described in a previous video is Var of Y given X equals sigma y times
 # the square root of 1 minus rho squared.
 #
-# SD(Y | X = x) = oy(sqrt(1- p^2))
+# Var(Y | X = x) = oy(sqrt(1- p^2))
 #
 # This is where statements like x explains such and such percent of the
 # variation in y comes from.
