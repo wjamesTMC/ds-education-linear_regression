@@ -21,6 +21,11 @@ ds_theme_set()
 # game to the closest 10th. We filtered our strata with few points. We use this
 # code to generate an informative data set. 
 
+Teams %>%
+  filter(yearID %in% 1961:2001) %>%
+  mutate(Singles = (H-HR-X2B-X3B) / G, BB = BB / G, HR = HR / G) %>%
+  summarize(cor(BB, HR), cor(Singles, HR), cor(BB, Singles))
+
 dat <- Teams %>% filter(yearID %in% 1961:2001) %>%
   mutate(HR_strata = round(HR/G, 1),
          BB_per_game = BB/G,
