@@ -64,7 +64,7 @@ galton_heights %>%
 # y in pairs for which x is set at that value is mu y plus rho x minus mu
 # x divided by sigma x times sigma y.
 
-# E(Y|X = x) - uy + p((X - ux) / (ox))oy
+# E(Y|X = x) = uy + p((X - ux) / (ox))oy
 
 # Note that this is a line with slope rho times sigma y divided by sigma x
 

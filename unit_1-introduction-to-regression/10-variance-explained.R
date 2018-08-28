@@ -4,10 +4,9 @@
 #
 # -----------------------------------------------------------
 
-# The theory we've been describing also tells us
-# that the standard deviation of the conditional distribution that we
-# described in a previous video is Var of Y given X equals sigma y times
-# the square root of 1 minus rho squared.
+# The theory we've been describing also tells us that the standard deviation of
+# the conditional distribution that we described in a previous video is Var of Y
+# given X equals sigma y times the square root of 1 minus rho squared.
 #
 # Var(Y | X = x) = oy(sqrt(1- p^2))
 #
