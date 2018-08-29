@@ -111,8 +111,10 @@ sample_n(galton_heights, N, replace = TRUE) %>%
 # important to note that several assumptions-- we just described some of them--
 # have to hold for these statements to hold.
 
+# ------------------------------------------------------------------------------
 # Advanced Note on LSE
-# 
+# ------------------------------------------------------------------------------
+
 # Although interpretation is not straight-forward, it is also useful to know
 # that the LSE can be strongly correlated, which can be seen using this code:
   
