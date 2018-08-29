@@ -23,9 +23,8 @@ dat <- Teams %>% filter(yearID %in% 1961:2001) %>%
   select(HR, BB, R) %>%
   filter(HR >= 0.4 & HR <= 1.2)
 
-# Then, to compute the
-# regression line in each strata, since we didn't know the lm function back
-# then, we used the formula directly like this. 
+# Then, to compute the regression line in each strata, since we didn't know the
+# lm function back then, we used the formula directly like this.
 
 dat %>%
   group_by(HR) %>%
@@ -58,13 +57,12 @@ dat %>%
 # (Intercept)          BB 
 #   2.1986073   0.6377959 
 
-# The lm function ignored the group_by. This is expected, because
-# lm is not part of the tidyverse and does not know how to handle the outcome of
-# group_by which is a group tibble. We're going to describe tibbles in some
-# details now. When summarize receives the output of group_by, it somehow knows
-# which rows of the table go with which groups. But where is this information
-# stored in the data frame? Let's write some code to see the output of a
-# group_by call. 
+# The lm function ignored the group_by. This is expected, because lm is not part
+# of the tidyverse and does not know how to handle the outcome of group_by which
+# is a group tibble. We're going to describe tibbles in some details now. When
+# summarize receives the output of group_by, it somehow knows which rows of the
+# table go with which groups. But where is this information stored in the data
+# frame? Let's write some code to see the output of a group_by call.
 
 dat %>% group_by(HR) %>% head()
 # A tibble: 6 x 3
@@ -78,10 +76,10 @@ dat %>% group_by(HR) %>% head()
 # 5   1    2.75  4.61
 # 6   0.9  3.06  4.58
 
-# Note that there are no columns with the information needed to
-# define the groups. But if you look closely at the output, you notice the line
-# "A tibble, 6 by 3." We can learn the class of the return object using this
-# line of code, and we see that the class is a "tbl." 
+# Note that there are no columns with the information needed to define the
+# groups. But if you look closely at the output, you notice the line "A tibble,
+# 6 by 3." We can learn the class of the return object using this line of code,
+# and we see that the class is a "tbl."
 
 dat %>% group_by(HR) %>% class()
 # [1] "grouped_df" "tbl_df"     "tbl"        "data.frame"
