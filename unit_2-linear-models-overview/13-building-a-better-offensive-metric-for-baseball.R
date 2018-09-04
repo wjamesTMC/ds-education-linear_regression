@@ -8,11 +8,10 @@
 library(tidyverse)
 library(dslabs)
 library(dplyr)
+library(broom)
 library(ggplot2)
 library(Lahman)               # Contains all the baseball statistics
 ds_theme_set()
-
-# Type str(Master) to see the structure of the Master table
 
 Teams %>%
   filter(yearID %in% 1961:2001) %>%
@@ -48,10 +47,12 @@ fit <- Teams %>%
 # Now, we can use the tidy function to see the nice summary.
 
 tidy(fit, conf.int = TRUE)
-#          term  estimate  std.error statistic       p.value  conf.low conf.high
-# 1 (Intercept) 1.7444018 0.08234949  21.18291  7.300077e-83 1.5828085 1.9059950
-# 2          BB 0.3873978 0.02700913  14.34322  1.195862e-42 0.3343982 0.4403974
-# 3          HR 1.5611228 0.04895718  31.88751 1.751870e-155 1.4650548 1.6571907
+# A tibble: 3 x 7
+#   term        estimate std.error statistic   p.value conf.low conf.high
+# <chr>          <dbl>     <dbl>     <dbl>     <dbl>    <dbl>     <dbl>
+# 1 (Intercept)    1.74     0.0823      21.2 7.30e- 83    1.58      1.91 
+# 2 BB             0.387    0.0270      14.3 1.20e- 42    0.334     0.440
+# 3 HR             1.56     0.0490      31.9 1.75e-155    1.47      1.66 
 
 # When we fit the model with only one variable without the adjustment, the
 # estimated slopes were 0.735 and 1.844 for bases on ball and home runs,
@@ -98,13 +99,15 @@ fit <- Teams %>%
 # errors, and confidence intervals.
 
 tidy(fit, conf.int = TRUE)
-#          term   estimate  std.error statistic       p.value   conf.low  conf.high
-# 1 (Intercept) -2.7692349 0.08620393 -32.12423 5.316854e-157 -2.9383923 -2.6000776
-# 2          BB  0.3711735 0.01174347  31.60678 2.078153e-153  0.3481293  0.3942176
-# 3     singles  0.5194231 0.01272339  40.82426 9.813525e-217  0.4944561  0.5443901
-# 4     doubles  0.7711695 0.02260817  34.11022 8.934839e-171  0.7268057  0.8155333
-# 5     triples  1.2397978 0.07680305  16.14256  2.238186e-52  1.0890877  1.3905078
-# 6          HR  1.4434012 0.02435224  59.27181  0.000000e+00  1.3956150  1.4911875
+# A tibble: 6 x 7
+#   term        estimate std.error statistic   p.value conf.low conf.high
+# <chr>          <dbl>     <dbl>     <dbl>     <dbl>    <dbl>     <dbl>
+# 1 (Intercept)   -2.77     0.0862     -32.1 5.32e-157   -2.94     -2.60 
+# 2 BB             0.371    0.0117      31.6 2.08e-153    0.348     0.394
+# 3 singles        0.519    0.0127      40.8 9.81e-217    0.494     0.544
+# 4 doubles        0.771    0.0226      34.1 8.93e-171    0.727     0.816
+# 5 triples        1.24     0.0768      16.1 2.24e- 52    1.09      1.39 
+# 6 HR             1.44     0.0244      59.3 0.           1.40      1.49 
 
 # To see how well our metric actually predicts runs, we can predict the number
 # of runs for each team in 2002 using the function predict to make the plot.
@@ -166,28 +169,28 @@ pa_per_game <- Batting %>%
 # don't know what has happened yet.
 
 # To avoid small sample artifacts, we're going to filter players with few plate
-# interferences. Here is the calculation of what we want to do in one long line
+# appearances Here is the calculation of what we want to do in one long line
 # of code using tidyverse.
 
 players <- Batting %>% filter(yearID %in% 1961:2001) %>%
   group_by(playerID) %>%
   mutate(PA = BB + AB) %>%
   summarize(G = sum(PA)/pa_per_game,
-            BB = sum(BB)/G,
+         BB = sum(BB)/G,
          singles = sum(H-X2B-X3B-HR)/G,
          doubles = sum(X2B)/G,
          triples = sum(X3B)/G,
          HR = sum(HR)/G,
          AVG = sum(H)/sum(AB),
          PA = sum(PA)) %>%
-  filter(PA == 300) %>%
+  filter(PA >= 300) %>%
   select(-G) %>%
   mutate(R_hat = predict(fit, newdata = .))
-    
+  
 # So we fit our model. And we have player-specific metrics. The player-specific
 # predicted runs computer here can be interpreted as a number of runs we would
 # predict a team to score if this team was made up of just that player, if that
-# player batted every single time. The distribution shows that there's y
+# player batted every single time. The distribution shows that there's wide
 # variability across players, as we can see here.
 
 players %>% ggplot(aes(R_hat)) +
@@ -244,10 +247,22 @@ players <- Master %>%
 players %>% select(nameFirst, nameLast, POS, salary, R_hat) %>%
   arrange(desc(R_hat)) %>%
   top_n(10)
-
+# Selecting by R_hat
+#     nameFirst    nameLast POS   salary    R_hat
+#  1       Todd      Helton  1B  5000000 7.764708
+#  2     Albert      Pujols  3B   600000 7.536519
+#  3      Frank      Thomas  1B  9927000 7.488997
+#  4       Mike      Piazza   C 10571429 7.180990
+#  5       Jeff     Bagwell  1B 11000000 7.042244
+#  6        Jim       Thome  1B  8000000 7.040614
+#  7      Nomar Garciaparra  SS  9000000 6.994424
+#  8       Alex   Rodriguez  SS 22000000 6.949960
+#  9      Jason      Giambi  1B 10428571 6.927987
+#  10    Carlos     Delgado  1B 19400000 6.768659
+# 
 # Note the very high salaries of these players in the top 10. In fact, we see
 # that players with high metrics have high salaries. We can see that by making a
-# plot 
+# plot
 
 players %>% ggplot(aes(salary, R_hat, color = POS)) +
   geom_point() +

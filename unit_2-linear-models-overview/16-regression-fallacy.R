@@ -118,22 +118,47 @@ two_years <- Batting %>%
   left_join(playerInfo, by="playerID")  %>%
   filter(POS != "P")  %>%
   select(-POS) %>%
-  arrange(desc('2013'))  %>%
+  arrange(desc(`2013`))  %>%
   select(-playerID)
 
 # Now let's look at the top performers of 2013 and then look at their
 # performance in 2014.
 
-# <<< insert results when available >>>
+# A tibble: 489 x 4
+# `2013` `2014` nameFirst nameLast
+# <dbl>  <dbl> <chr>     <chr>   
+#  1  0.348  0.313 Miguel    Cabrera 
+#  2  0.345  0.283 Hanley    Ramirez 
+#  3  0.331  0.332 Michael   Cuddyer 
+#  4  0.324  0.289 Scooter   Gennett 
+#  5  0.324  0.277 Joe       Mauer   
+#  6  0.323  0.287 Mike      Trout   
+#  7  0.321  0.263 Chris     Johnson 
+#  8  0.319  0.288 Freddie   Freeman 
+#  9  0.319  0.296 Yasiel    Puig    
+# 10  0.319  0.282 Yadier    Molina  
+# ... with 479 more rows
 
 # Note that the same pattern arises when we look at the top performers. Batting
 # averages go down for the top performers. But these are not rookies. So this
 # can't be explained with a sophomore slump. Also know what happens to the worst
 # performers of 2013. Here they are.
 
-arrange(two_years, '2013')
-
-# <<< insert results when available >>>
+arrange(two_years, `2013`)
+# A tibble: 489 x 4
+# `2013` `2014` nameFirst nameLast 
+# <dbl>  <dbl> <chr>     <chr>    
+#  1  0.142 NA     Henry     Blanco   
+#  2  0.145 NA     Luis      Cruz     
+#  3  0.158  0.219 Danny     Espinosa 
+#  4  0.169 NA     Martin    Maldonado
+#  5  0.179  0.149 Dan       Uggla    
+#  6  0.181 NA     Roger     Bernadina
+#  7  0.181  0.2   Jeff      Mathis   
+#  8  0.183 NA     Jason     Giambi   
+#  9  0.184  0.208 Melvin    Upton    
+# 10  0.188 NA     Jordany   Valdespin
+# ... with 479 more rows
 
 # Their batting averages go up in their second season in 2014. Is this some sort
 # of reverse sophomore slump? It is not. There is no such thing as a sophomore
@@ -141,13 +166,13 @@ arrange(two_years, '2013')
 # of performance in two separate years is high but not perfect. Here is the data
 # for 2013 performance and 2014 performance.
 
-two_years %>% ggplot(aes('2013', '2014')) +
+two_years %>% ggplot(aes(`2013`, `2014`)) +
   geom_point()
 
 # You can see it's correlated. But it's not perfectly correlated. The
 # correlation is 0.46.
 
-summarize(two_years, cor('s013', '2014'))
+summarize(two_years, cor(`2013`, `2014`))
 # A tibble: 1 x 1
 # 'cor(\'2013\', \'2014\')'
 #                     >dbl>

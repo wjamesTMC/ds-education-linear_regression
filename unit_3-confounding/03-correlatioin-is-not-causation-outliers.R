@@ -4,6 +4,17 @@
 #
 # -----------------------------------------------------------
 
+# Set Up
+library(tidyverse)
+library(tidyr)
+library(dslabs)
+library(dplyr)
+library(broom)
+library(ggplot2)
+ds_theme_set()
+
+falling_object <- rfalling_object()
+
 # Another way that we can see high correlations when there's no causation is
 # when we have outliers. Suppose we take measurements from two independent
 # outcomes, x and y, and we standardize the measurements. However, imagine we
@@ -29,7 +40,7 @@ cor(x, y)
 # we remove entry 23.
 
 cor(x[-23], y[-23])
-# [1] -0.04924943
+# [1] -0.08476749
 
 # So one way to deal with outliers is to try to detect them and remove them. But
 # there is an alternative way to the sample correlation for estimating the
@@ -42,7 +53,7 @@ cor(x[-23], y[-23])
 # correlation of the ranks,
 
 cor(rank(x), rank(y))
-# [1] -0.05075308
+# [1] -0.05275728
 
 # we get something much closer to 0, as we see here.
 # Spearman correlation can also be calculated with the correlation
@@ -50,7 +61,7 @@ cor(rank(x), rank(y))
 # [? cor ?] which correlation to compute.
 
 cor(x, y, method = "spearman")
-# [1] -0.05075308
+# [1] -0.05275728
 
 # There are also methods for robust fitting of linear models, which you can
 # learn about in, for example, this book.

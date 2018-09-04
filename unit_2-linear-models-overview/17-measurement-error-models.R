@@ -14,8 +14,6 @@ library(ggplot2)
 ds_theme_set()
 
 falling_object <- rfalling_object()
-str(falling_object)
-head(falling_object)
 
 # Up until now, all our linear regression examples have been applied to two or
 # more random variables. We assume the pairs are bivariate normal and use this
