@@ -4,15 +4,6 @@
 #
 # -----------------------------------------------------------
 
-# Set Up
-library(tidyverse)
-library(tidyr)
-library(dslabs)
-library(dplyr)
-library(broom)
-library(ggplot2)
-ds_theme_set()
-
 # We have just seen an example of Simpson's paradox. It is called a paradox
 # because we see the sign of the correlation flip when we computed on the entire
 # population and when we computed on specific strata. Now, we're going to use a
