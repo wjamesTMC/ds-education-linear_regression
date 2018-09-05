@@ -1,8 +1,8 @@
-# -----------------------------------------------------------
+# --------------------------------------------------------------------------------
 #
 # Correlation
 #
-# -----------------------------------------------------------
+# --------------------------------------------------------------------------------
 
 library(tidyverse)
 library(dslabs)
@@ -35,10 +35,18 @@ library(Lahman)
 # fathers and the first sons. The actual data Galton used to discover and define
 # regression.
 
-install.packages("HistData")
 library(HistData)
 
 data("GaltonFamilies")
+head(GaltonFamilies)
+#   family father mother midparentHeight children childNum gender childHeight
+# 1    001   78.5   67.0           75.43        4        1   male        73.2
+# 2    001   78.5   67.0           75.43        4        2 female        69.2
+# 3    001   78.5   67.0           75.43        4        3 female        69.0
+# 4    001   78.5   67.0           75.43        4        4 female        69.0
+# 5    002   75.5   66.5           73.66        4        1   male        73.5
+# 6    002   75.5   66.5           73.66        4        2   male        72.5
+
 galton_heights <- GaltonFamilies %>%
   filter(childNum == 1 & gender == "male") %>%
   select(father, childHeight) %>%
@@ -50,8 +58,7 @@ galton_heights <- GaltonFamilies %>%
 
 galton_heights %>%
   summarize(mean(father), sd(father), mean(son), sd(son))
-
-#  mean(father) sd(father) mean(son)  sd(son)
+#   mean(father) sd(father) mean(son)  sd(son)
 # 1     69.09888   2.546555  70.45475 2.557061
 
 # This summary fails to describe a very important characteristic of the data

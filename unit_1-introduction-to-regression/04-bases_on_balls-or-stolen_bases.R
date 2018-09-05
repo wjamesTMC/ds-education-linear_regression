@@ -18,7 +18,6 @@ library(readr)
 
 library(dslabs)
 library(ggplot2)
-install.packages("Lahman")
 library(Lahman) # Contains all the baseball statistics
 ds_theme_set()
 Teams %>% filter(yearID %in% 1961:2001) %>%
@@ -26,8 +25,8 @@ Teams %>% filter(yearID %in% 1961:2001) %>%
   ggplot(aes(HR_per_game, R_per_game)) +
   geom_point(alpha = 0.5)
 
-# The plot shows a very strong association - teams with more
-# home runs tend to score more runs
+# The plot shows a very strong association - teams with more home runs tend to
+# score more runs
 #
 # (2) What about stolen bases?
 
@@ -45,13 +44,12 @@ Teams %>% filter(yearID %in% 1961:2001) %>%
   ggplot(aes(BB_per_game, R_per_game)) +
   geom_point(alpha = 0.5)
 
-# Although the relationship is not as strong as it was for
-# home runs, we do see a pretty strong relationship here.
-# Now it could be that home runs also cause the bases on balls.
+# Although the relationship is not as strong as it was for home runs, we do see
+# a pretty strong relationship here. Now it could be that home runs also cause
+# the bases on balls.
 #
-# So it might appear that a base on balls is causing runs when
-# in fact, it's home runs that are causing both. This is called
-# CONFOUNDING.
+# So it might appear that a base on balls is causing runs when in fact, it's
+# home runs that are causing both. This is called CONFOUNDING.
 
 # From the exercises, calculating at bats per game
 
@@ -60,9 +58,8 @@ Teams %>% filter(yearID %in% 1961:2001 ) %>%
   ggplot(aes(AB_per_game, R_per_game)) + 
   geom_point(alpha = 0.5)
 
-# Linear regression will help us parse all this out and quantify the associations.
-# This will then help us determine what players to recruit.
-# Specifically, we will try to predict things
-# like how many more runs will the team score if we
-# increase the number of bases on balls but keep the home runs fixed.
-# Regression will help us answer this question, as well.
+# Linear regression will help us parse all this out and quantify the
+# associations. This will then help us determine what players to recruit.
+# Specifically, we will try to predict things like how many more runs will the
+# team score if we increase the number of bases on balls but keep the home runs
+# fixed. Regression will help us answer this question, as well.

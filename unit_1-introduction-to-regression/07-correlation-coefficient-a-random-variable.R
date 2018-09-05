@@ -1,16 +1,14 @@
-# -----------------------------------------------------------
+# --------------------------------------------------------------------------------
 #
 # Correlation Coefficient a Random Variable
 #
-# -----------------------------------------------------------
+# --------------------------------------------------------------------------------
 
 library(tidyverse)
 library(dslabs)
 library(dplyr)
 library(ggplot2)
-install.packages("Lahman")
 library(Lahman)
-install.packages("HistData")
 library(HistData)
 
 # In most data science applications, we do not observe the population, but

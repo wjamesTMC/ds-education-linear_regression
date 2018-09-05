@@ -1,49 +1,54 @@
-# -----------------------------------------------------------
+# --------------------------------------------------------------------------------
 #
 # Correlation Coefficient
 #
-# -----------------------------------------------------------
+# --------------------------------------------------------------------------------
 
 library(tidyverse)
 library(dslabs)
 library(dplyr)
 library(ggplot2)
-install.packages("Lahman")
 library(Lahman)
-install.packages("HistData")
 library(HistData)
 
-# The correlation coefficient is defined for a list of pairs-- x1, y1 through
-# xn, yn--with the following formula.
-#
-#      See 6-correlation-coefficient-figures
-#      Figure 1
-# 
+# The correlation coefficient is defined for a list of pairs -- x1, y1 through
+# xn, yn -- with the following formula.
+
+# p = 1/n E ((xi - ux) / ox ) ( (yi - uy) / oy)
+#    where
+#         p = rho
+#         n = number of instances (i, ... n)
+#         E = Epislon
+#         u = mu (averages)
+#         o = sigma (standard deviation of x or y)
+
+# See 6-correlation-coefficient-figures, Figure 1
+ 
 # Here, mu x and mu y are the averages of x and y, respectively. And sigma x and
 # sigma y are the standard deviations. The Greek letter rho is commonly used in
 # the statistics book to denote this correlation.
-# 
+ 
 # The reason is that rho is the Greek letter for r, the first letter of the word
 # regression.
-# 
+ 
 # Soon, we will learn about the connection between correlation and regression.
 # To understand why this equation does, in fact, summarize how two variables
 # move together, consider the i-th entry of x is xi minus mu x divided by sigma
 # x SDs away from the average.
-# 
-# Similarly, the yi-- which is paired with the xi--is yi minus mu y divided by
+ 
+# Similarly, the yi -- which is paired with the xi -- is yi minus mu y divided by
 # sigma y SDs away from the average y.
-# 
+ 
 # If x and y are unrelated, then the product of these two quantities will be
 # positive.
-#
+
 # See Figure 4
-#
+
 # That happens when they are both positive or when they are both negative as
 # often as they will be negative. That happens when one is positive and the
 # other is negative, or the other way around. One is negative and the other one
 # is positive. This will average to about 0. The correlation is this average.
-# 
+ 
 # And therefore, unrelated variables will have a correlation of about 0. If
 # instead the quantities vary together, then we are averaging mostly positive
 # products. Because they're going to be either positive times positive or
@@ -53,9 +58,10 @@ library(HistData)
 # negative 1 and 1. To see this, consider that we can have higher correlation
 # than when we compare a list to itself. That would be perfect correlation. In
 # this case, the correlation is given by this equation,
-#
+
+# p = 1/n E ((xi -ux) / ox )^2 = 1/o^2 1/n E (xi - ux)^2 = 1
 # See figure 5
-#
+
 # which we can show is equal to 1. A similar argument with x and its exact
 # opposite, negative x, proves that the correlation has to be greater or equal
 # to negative 1. So it's between minus 1 and 1. The correlation between father
@@ -70,9 +76,17 @@ galton_heights <- GaltonFamilies %>%
   rename(son = childHeight)
 
 galton_heights %>% summarize(cor(father,son))
-
 #   cor(father, son)
 # 1        0.5007248
+
+# NOTE: the value 0.5007248 indicates that for every unit increase of the father
+# (i.e., an inch in height), the son will increase by 0.5007248 inches
+
+# NOTE on cor()
+# Correlation, Variance And Covariance (Matrices) var, cov and cor compute the
+# variance of x and the covariance or correlation of x and y if these are
+# vectors. If x and y are matrices then the covariances (or correlations)
+# between the columns of x and the columns of y are computed.
 
 # We saw what the data looks like when the correlation is 0.5. To see what data
 # looks like for other values of rho, here are six examples of pairs with
