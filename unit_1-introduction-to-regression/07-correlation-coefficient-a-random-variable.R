@@ -11,6 +11,8 @@ library(ggplot2)
 library(Lahman)
 library(HistData)
 
+data("galton_heights")
+
 # In most data science applications, we do not observe the population, but
 # rather a sample. As with the average and standard deviation, the sample
 # correlation is the most commonly used estimate of the population correlation.
@@ -34,9 +36,13 @@ R <- replicate(B, {
   sample_n(galton_heights, N, replace = TRUE) %>%
     summarize(r=cor(father, son)) %>% .$r
 })
-data.frame(R) %>% ggplot(aes(R)) + geom_histogram(binwidth = 0.05, color = "black")
+
+data.frame(R) %>% ggplot(aes(R)) +
+     geom_histogram(binwidth = 0.05, color = "black")
 mean(R)
+# [1] 0.501
 sd(R)
+# [1] 0.147
 
 # We see that the expected value is the population correlation, the mean of
 # these Rs is 0.5, and that it has a relatively high standard error relative to
