@@ -1,16 +1,14 @@
-# -----------------------------------------------------------
+# --------------------------------------------------------------------------------
 #
 # Bivariate Normal Distribution
 #
-# -----------------------------------------------------------
+# --------------------------------------------------------------------------------
 
 library(tidyverse)
 library(dslabs)
 library(dplyr)
 library(ggplot2)
-install.packages("Lahman")
 library(Lahman)
-install.packages("HistData")
 library(HistData)
 
 data("GaltonFamilies")
@@ -58,7 +56,7 @@ galton_heights %>%
   stat_qq(aes(sample = son)) +
   facet_wrap(~z_father)
 
-# Now, we come back to defining correlation. Galton showed-- using
+# Now, we come back to defining correlation. Galton showed -- using
 # mathematical statistics--that when two variables follow a bivariate
 # normal distribution, then for any given x the expected value of the 
 # y in pairs for which x is set at that value is mu y plus rho x minus mu
@@ -67,12 +65,9 @@ galton_heights %>%
 # E(Y|X = x) = uy + p((X - ux) / (ox))oy
 
 # Note that this is a line with slope rho times sigma y divided by sigma x
-
-# Slope: p(oy / ox)
-
+#         Slope: p(oy / ox)
 # and intercept mu y minus n times mu x. 
-
-# intercept: uy - mux
+#         intercept: uy - mux
 
 # And therefore, this is the same as the regression line we saw in a previous 
 # video. This can be written like this.

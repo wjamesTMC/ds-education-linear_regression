@@ -1,8 +1,8 @@
-# -----------------------------------------------------------
+# --------------------------------------------------------------------------------
 #
 # Variance Explained
 #
-# -----------------------------------------------------------
+# --------------------------------------------------------------------------------
 
 # The theory we've been describing also tells us that the standard deviation of
 # the conditional distribution that we described in a previous video is Var of Y

@@ -1,16 +1,13 @@
-# -----------------------------------------------------------
+# --------------------------------------------------------------------------------
 #
 # Confounding: Are BBs More Predictive?
 #
-# -----------------------------------------------------------
+# --------------------------------------------------------------------------------
 
 # Set up
 library(tidyverse)
-library(rvest)
-library(readr)
 library(dslabs)
 library(ggplot2)
-install.packages("Lahman")
 library(Lahman) # Contains all the baseball statistics
 ds_theme_set()
 
