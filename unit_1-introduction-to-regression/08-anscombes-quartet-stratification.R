@@ -8,9 +8,7 @@ library(tidyverse)
 library(dslabs)
 library(dplyr)
 library(ggplot2)
-install.packages("Lahman")
 library(Lahman)
-install.packages("HistData")
 library(HistData)
 
 # Correlation is not always a good summary of the relationship
@@ -146,7 +144,6 @@ s_y <- sd(galton_heights$son)
 r < cor(galton_heights$father, galton_heights$son)
 m <- r * s_y / s_x
 b <- mu_y - m * mu_x
-
 
 # Here's a code to make the plot with the regression line. 
 

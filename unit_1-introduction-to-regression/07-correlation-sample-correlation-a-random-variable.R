@@ -1,6 +1,6 @@
 # --------------------------------------------------------------------------------
 #
-# Correlation Coefficient a Random Variable
+# Correlation Sample Correlation a Random Variable
 #
 # --------------------------------------------------------------------------------
 
@@ -87,3 +87,5 @@ R <- replicate(B, {
 data.frame(R) %>% ggplot(aes(R)) + geom_histogram(binwidth = 0.05, color = "black")
 mean(R)
 sd(R)
+
+# Answer: it stays about the same
