@@ -10,14 +10,20 @@ library(rvest)
 library(readr)
 library(dslabs)
 library(ggplot2)
-install.packages("Lahman")
 library(Lahman) # Contains all the baseball statistics
 ds_theme_set()
 
+library(HistData)
+data("GaltonFamilies")
+galton_heights <- GaltonFamilies %>%
+     filter(childNum == 1 & gender == "male") %>%
+     select(father, childHeight) %>%
+     rename(son = childHeight)
+
 # For linear models to be useful, we have to estimate the unknown parameters,
-# the betas. The standard approach in science is to find the values that
+# the betas. The standard approach in data science is to find the values that
 # minimize the distance of the fitted model to the data. To quantify, this we
-# use the least squares equation. 
+# use the least squares equation.
 
 # For Galton data, we would write something like this. This quantity is called
 # the Residual Sum of Squares, RSS.
@@ -45,6 +51,7 @@ rss <- function(beta0, beta1, data){
 beta1 = seq(0, 1, len=nrow(galton_heights))
 results <- data.frame(beta1 = beta1,
                       rss = sapply(beta1, rss, beta0 = 25))
+
 results %>% ggplot(aes(beta1, rss)) + geom_line() +
   geom_line(aes(beta1, rss), col=2)
 

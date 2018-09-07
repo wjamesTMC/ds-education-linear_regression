@@ -10,7 +10,6 @@ library(rvest)
 library(readr)
 library(dslabs)
 library(ggplot2)
-install.packages("Lahman")
 library(Lahman) # Contains all the baseball statistics
 ds_theme_set()
 
@@ -44,8 +43,7 @@ dat %>%
 # Remember that the regression slope for predicting runs with bases on balls
 # when we ignore home runs was 0.735. But once we stratify by home runs, these
 # slopes are substantially reduced. We can actually see what the slopes are by
-# using this code. We stratify by home run and then compute the slope using the
-# formula that we showed you previously.
+# using this code. 
 
 dat %>%
   group_by(HR_strata) %>%
@@ -63,12 +61,14 @@ dat %>%
 # 8       1.1 0.454
 # 9       1.2 0.440
 
-# These values are closer to the slope we obtained from singles, which is 0.449.
-# Which is more consistent with our intuition. Since both singles and bases on
-# ball get us to first base, they should have about the same predictive power.
+# We stratify by home run and then compute the slope using the formula that we
+# showed you previously. These values are closer to the slope we obtained from
+# singles, which is 0.449. Which is more consistent with our intuition. Since
+# both singles and bases on balls get us to first base, they should have about
+# the same predictive power.
 
-# Now, although our understanding of the application--our understanding of
-# baseball-- tells us that home runs cause bases on balls and not the other way
+# Now, although our understanding of the application -- our understanding of
+# baseball -- tells us that home runs cause bases on balls and not the other way
 # around, we can still check if, after stratifying by base on balls, we still
 # see a home run effect or if it goes down. We use the same code that we just
 # used for bases on balls. But now, we swap home runs for bases on balls to get
@@ -119,6 +119,11 @@ dat %>%
 # equation
 
 # E|R | BB = x1, HR = x2] = B0 + B1(x2)x1 + B2(x1)x2
+
+# NOTE: Fitting a model means that you're making your algorithm learn the
+# relationship between predictors and outcome so that you can predict the future
+# values of the outcome. So the best fitted model has a specific set of
+# parameters which best defines the problem at hand.
 
 # with the slopes for x1 changing for different values of x2 and vice versa.
 # Here, x1 is bases on balls. And x2 are home runs. Is there an easier approach?

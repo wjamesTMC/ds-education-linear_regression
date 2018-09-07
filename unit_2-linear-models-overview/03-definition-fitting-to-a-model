@@ -1,0 +1,29 @@
+# ----------------------------------------------------------------------------------------
+#
+# From the Web, Explanations of "Fitting a Model"
+#
+# ----------------------------------------------------------------------------------------
+
+I'll try to give a non technical explanation of a model fit is... using a dinner in a fine restaurant.
+
+For now keep this in mind: a model is a simplified representation of reality.
+
+Imagine you go to a restaurant and that you are really up for a main course that has steak with rice. The waiter takes you to your table and tells you that he will bring every single item that the chef can cook, freshly prepared for you to chose. You pass every single one, from pork to vegan to pizza until you get to one that has steak with rice.
+
+That sounds weird, right? When you go to a restaurant you expect a menu. Cooking every single meal for every single customer with the only purpose of the customer choosing what best fits his preference would take too long and be too expensive. You want a menu!
+
+The menu is a representation of what the chef can provide. It has all the variables you need to make a choice like the price and the ingredients.
+
+When someone creates the menu, it is fitting a model with the known variables that they are meaningful while excluding others that probably won't help your choice, like the temperature of the oven. It is a simplified representation of the reality: the actual meals that are a lot more complex than what is described in the menu. When someone fits a model it is also using the known data, for instance, the chef probably knows how to cook more dishes with different ingredients, but that menu has a subset of those and you can only choose from that subset.
+
+When you chose something given what you know from the model, you are making a prediction that what you chose is in fact you want to eat.
+
+Model fitting is creating that simplified representation in a way that can generally be used successfully given new data, in our case, new customers. Success is measured by the food meeting your expectations as a customer, for instance, if you paid or left the restaurant screaming.
+
+# # # # #
+
+Whatever you want to call what I and others like me do (data science, applied statistics, machine learning, etc), there's a lot of mathematical description of any given amount of data involved.  Loosely speaking, this mathematical description is called a model.  That model often takes inputs and produces outputs based on the data we have, and we want to use that model to predict or explain future data.  It could produce data that can take any value (sometimes within a range):  this is regression.  Or there could be a set of discrete choices, called classification.  Together, these two comprise most of what is called supervised learning (there are many other types of learning, but I don't need to describe them to answer this question).
+
+One of the primary goals of a data scientist (or whatever we're called) is to pick the right mathematical representation of the data (with respect to the assumptions we're willing to make, the problem we're trying to solve, and the data themselves).
+
+This mathematical description could be called a random forest, or least squares, or logistic regression.  Or any of hundreds of other names.  These are algorithms, or, alternatively, models.

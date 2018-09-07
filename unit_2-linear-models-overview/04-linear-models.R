@@ -10,7 +10,6 @@ library(rvest)
 library(readr)
 library(dslabs)
 library(ggplot2)
-install.packages("Lahman")
 library(Lahman) # Contains all the baseball statistics
 ds_theme_set()
 
@@ -102,6 +101,15 @@ ds_theme_set()
 # -----------------------------------------------------------------
 # EXERCISES
 # -----------------------------------------------------------------
+
+# Setup
+
+library(HistData)
+data("GaltonFamilies")
+galton_heights <- GaltonFamilies %>%
+     filter(childNum == 1 & gender == "male") %>%
+     select(father, childHeight) %>%
+     rename(son = childHeight)
 
 # Question 1
 lm(son ~ father, data = galton_heights)

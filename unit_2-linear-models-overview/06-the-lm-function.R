@@ -1,18 +1,23 @@
-# -----------------------------------------------------------
+# --------------------------------------------------------------------------------
 #
 # The lm Function
 #
-# -----------------------------------------------------------
+# --------------------------------------------------------------------------------
 
 # Set up
 library(tidyverse)
-library(rvest)
-library(readr)
 library(dslabs)
 library(ggplot2)
-install.packages("Lahman")
-library(Lahman) # Contains all the baseball statistics
 ds_theme_set()
+
+
+library(broom)
+library(HistData)
+data("GaltonFamilies")
+galton_heights <- GaltonFamilies %>%
+     filter(childNum == 1 & gender == "male") %>%
+     select(father, childHeight) %>%
+     rename(son = childHeight)
 
 # In r, we can obtain the least squares estimates using the lm function. To fit
 # the following model where Yi is the son's height and Xi is the father height,
@@ -21,8 +26,12 @@ ds_theme_set()
 fit <- lm(son ~ father, data = galton_heights)
 fit
 
-# This gives us the least squares estimates, which we can see in the output of
-# r.
+# This is interpreted as "given the father's height, what is the son's height?"
+# or "given the independent (known) variable of father's height, what is the
+# dependent (predicted) value of the variable we call the son's height?"
+
+# The LM function gives us the least squares estimates, which we can see in the
+# output of r.
 
 # Call:
 #   lm(formula = son ~ father, data = galton_heights)
@@ -33,7 +42,7 @@ fit
 
 # The general way we use lm is by using the tilde character to let lm know which
 # is the value we're predicting that's on the left side of the tilde, and which
-# variables we're using to predict-- those will be on the right side of the
+# variables we're using to predict -- those will be on the right side of the
 # tilde. The intercept is added automatically to the model. So you don't have to
 # include it when you write it.
 

@@ -8,7 +8,6 @@ library(tidyverse)
 library(dslabs)
 library(dplyr)
 library(ggplot2)
-install.packages("Lahman")
 library(Lahman)
 
 # Up to now in this series, we have focused mainly on univariate variables.
