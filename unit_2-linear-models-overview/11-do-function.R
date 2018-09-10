@@ -8,10 +8,10 @@
 library(tidyverse)
 library(dslabs)
 library(ggplot2)
-install.packages("Lahman")
-library(Lahman)               # Contains all the baseball statistics
+library(Lahman)
 ds_theme_set()
 
+# Set up the data for use later on
 dat <- Teams %>% filter(yearID %in% 1961:2001) %>%
   mutate(HR = round(HR/G, 1),
          BB = BB/G,
@@ -21,14 +21,14 @@ dat <- Teams %>% filter(yearID %in% 1961:2001) %>%
 
 # In this video, we'll describe the very useful do( ) function. The tidyverse
 # functions know how to interpret group tibbles. Furthermore, to facilitate
-# stringing commands through the pipe, tidyverse function consistently return
-# data frames. Since this assures that the output of 1 is accepted as the input
-# of another. But most our functions do not recognize group tibbles, nor do they
-# return data frames. The lm( ) function is an example. The do( ) function
-# serves as a bridge between our functions, such as lm( ) and the tidyverse. The
-# do( ) function understands group tibbles and always returns a data frame. So
-# let's try to use the do( ) function to fit a regression line to each home run
-# strata. We would do it like this.
+# stringing commands through the pipe, tidyverse functions consistently return
+# data frames. Since this assures that the output of one is accepted as the
+# input of another. But most of our functions do not recognize group tibbles,
+# nor do they return data frames. The lm( ) function is an example. The do( )
+# function serves as a bridge between our functions, such as lm( ) and the
+# tidyverse. The do( ) function understands group tibbles and always returns a
+# data frame. So let's try to use the do( ) function to fit a regression line to
+# each home run strata. We would do it like this.
 
 dat %>%
   group_by(HR) %>%
@@ -37,7 +37,7 @@ dat %>%
 # Groups: <by row>
 #   
 #   # A tibble: 9 x 2
-#   HR fit     
+#        HR fit     
 # * <dbl> <list>  
 #   1   0.4 <S3: lm>
 #   2   0.5 <S3: lm>
@@ -135,18 +135,18 @@ get_lse <- function(data) {
              sd = summary(fit)$coefficient[,2])
 }
 
-dat %>%
-  group_by(HR) %>%
-  do(get_lse(.))
-
 # And now we use the do( ) function as we used it before, and get a very useful
 # tibble, giving us the estimates of the slope and intercept, as well as the
 # standard errors.
 
+dat %>%
+     group_by(HR) %>%
+     do(get_lse(.))
+
 # A tibble: 18 x 4
 # Groups:   HR [9]
-# HR term        slope     sd
-# <dbl> <fct>       <dbl>  <dbl>
+#      HR term        slope     sd
+#   <dbl> <fct>       <dbl>  <dbl>
 # 1   0.4 (Intercept) 1.36  0.631 
 # 2   0.4 BB          0.734 0.208 
 # 3   0.5 (Intercept) 2.01  0.344 

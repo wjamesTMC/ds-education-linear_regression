@@ -1,6 +1,7 @@
 # -----------------------------------------------------------
 #
 # Building a Better Offensive Metric for Baseball
+# https://rafalab.github.io/dsbook/putting-it-all-together-building-a-better-offensive-metric-for-baseball.html
 #
 # -----------------------------------------------------------
 
@@ -10,7 +11,7 @@ library(dslabs)
 library(dplyr)
 library(broom)
 library(ggplot2)
-library(Lahman)               # Contains all the baseball statistics
+library(Lahman)
 ds_theme_set()
 
 Teams %>%
@@ -27,13 +28,13 @@ dat <- Teams %>% filter(yearID %in% 1961:2001) %>%
 # In trying to answer how well bases on balls predict runs, data exploration let
 # us to this model. Here, the data is approximately normal.
 
-#     E[R | BB = x1, HR = x2] = Bo + B1x1 + B2x2
+#     E[R | BB = x1, HR = x2] = B0 + B1x1 + B2x2
 
 # And conditional distributions were also normal. Thus, we're justified to pose
 # a linear model like this. With yi, the runs per game. x1, walks per game. And
 # x2, home runs per game.
 
-#     Yi = Bo + B1x1 + B2x2 +Ei
+#     Yi = B0 + B1x1 + B2x2 +Ei
 
 # To use lm here, we need to let it know that we have two predictive variables.
 # So we use the plus symbol as follows. Here's a code that fits that multiple
@@ -76,7 +77,7 @@ tidy(fit, conf.int = TRUE)
 # constant. If this is true, if this model holds true, then a linear model for
 # our data is the following.
 
-#     Yi = Bo + B1x1 + B2x2 + B3x3 + B4x4 + B5x5+Ei  
+#     Yi = Bo + B1x1 + B2x2 + B3x3 + B4x4 + B5x5 + Ei  
 
 # With x1, x2, x3, x4, x5 representing bases on balls per game, singles per
 # game, doubles per game, triples per game, and home runs per game,
@@ -101,7 +102,7 @@ fit <- Teams %>%
 tidy(fit, conf.int = TRUE)
 # A tibble: 6 x 7
 #   term        estimate std.error statistic   p.value conf.low conf.high
-# <chr>          <dbl>     <dbl>     <dbl>     <dbl>    <dbl>     <dbl>
+#   <chr>          <dbl>     <dbl>     <dbl>     <dbl>    <dbl>     <dbl>
 # 1 (Intercept)   -2.77     0.0862     -32.1 5.32e-157   -2.94     -2.60 
 # 2 BB             0.371    0.0117      31.6 2.08e-153    0.348     0.394
 # 3 singles        0.519    0.0127      40.8 9.81e-217    0.494     0.544
@@ -115,7 +116,7 @@ tidy(fit, conf.int = TRUE)
 # from years previous to 2002. And here is the plot.
 
 Teams %>%
-  filter(yearID %in% 1961:2001) %>%
+  filter(yearID %in% 2002) %>%
   mutate(BB = BB/G,
          singles = (H-X2B-X3B-HR)/G,
          doubles = X2B/G,
@@ -123,10 +124,10 @@ Teams %>%
          HR = HR/G,
          R = R/G) %>%
   mutate(R_hat = predict(fit, newdata = .)) %>%
-  ggplot(aes(R_hat, R)) +
-  geom_point(alpha = 0.5) +
-  geom_text(aes(label=teamID), nudge_x = .05) +
-  geom_smooth(method="lm", se=FALSE, color="black")
+  ggplot(aes(R_hat, R, label = teamID)) +
+  geom_point() +
+  geom_text(nudge_x = 0.1, cex = 2) +
+  geom_abline()
 
 # Our model does quite a good job, as demonstrated by the fact that points from
 # the observed versus predicted plot fall close to the identity line.

@@ -8,8 +8,7 @@
 library(tidyverse)
 library(dslabs)
 library(ggplot2)
-install.packages("Lahman")
-library(Lahman)               # Contains all the baseball statistics
+library(Lahman)
 ds_theme_set()
 
 # In this video, we're going to describe some of the main differences between
@@ -75,7 +74,7 @@ tibble(id = c(1, 2, 3), func = c(mean, median, sd))
 #   3     3 <fn>
    
 # Finally, the last difference we describe is that tibbles can be grouped.
-# The function group by returns a special kind of tibble, a grouped tibble. This
+# The function group_by( ) returns a special kind of tibble, a grouped tibble. This
 # class stores information that lets you know which rows are in which groups.
 # The tidyverse functions, in particular the summarize functions, are aware of
 # the group information. In the example we showed, we saw that the ln function,
