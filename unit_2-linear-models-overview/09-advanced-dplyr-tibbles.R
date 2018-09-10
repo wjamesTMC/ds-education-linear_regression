@@ -8,7 +8,6 @@
 library(tidyverse)
 library(dslabs)
 library(ggplot2)
-install.packages("Lahman")
 library(Lahman)               # Contains all the baseball statistics
 ds_theme_set()
 

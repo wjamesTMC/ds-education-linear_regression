@@ -10,10 +10,8 @@ library(rvest)
 library(readr)
 library(dslabs)
 library(ggplot2)
-install.packages("Lahman")
 library(Lahman)               # Contains all the baseball statistics
 ds_theme_set()
-install.packages("HistData")  # Contains all the heights data
 library(HistData)
 
 data("GaltonFamilies")
@@ -119,7 +117,9 @@ sample_n(galton_heights, N, replace = TRUE) %>%
 # that the LSE can be strongly correlated, which can be seen using this code:
   
 lse %>% summarize(cor(beta_0, beta_1))
- 
+#   cor(beta_0, beta_1)
+# 1          -0.9993886
+
 # However, the correlation depends on how the predictors are defined or
 # transformed. Here we standardize the father heights, which changes xi to
 # xi - x.

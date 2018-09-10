@@ -26,9 +26,9 @@ galton_heights <- GaltonFamilies %>%
 fit <- lm(son ~ father, data = galton_heights)
 fit
 
-# This is interpreted as "given the father's height, what is the son's height?"
-# or "given the independent (known) variable of father's height, what is the
-# dependent (predicted) value of the variable we call the son's height?"
+# NOTE: This is interpreted as "given the father's height, what is the son's
+# height?" or "given the independent (known) variable of father's height, what
+# is the dependent (predicted) value of the variable we call the son's height?"
 
 # The LM function gives us the least squares estimates, which we can see in the
 # output of r.
@@ -38,7 +38,7 @@ fit
 # 
 # Coefficients:
 #   (Intercept)       father  
-# 35.7125       0.5028  
+#       35.7125       0.5028  
 
 # The general way we use lm is by using the tilde character to let lm know which
 # is the value we're predicting that's on the left side of the tilde, and which
@@ -70,6 +70,10 @@ summary(fit)
 # Multiple R-squared:  0.2507,	Adjusted R-squared:  0.2465 
 # F-statistic: 59.23 on 1 and 177 DF,  p-value: 9.473e-13
 
+# NOTE: Standard Error is a measure of the statistical accuracy of an estimate,
+# equal to the standard deviation of the theoretical distribution of a large
+# population of such estimates.
+
 # To understand some of the information included in this summary, we need to
 # remember that the LSE are random variables. Mathematical statistics gives us
 # some ideas of the distribution of these random variables. And we'll learn some
@@ -88,7 +92,6 @@ summary(fit)
 library(tidyverse)
 library(dslabs)
 library(ggplot2)
-install.packages("Lahman")
 library(Lahman) # Contains all the baseball statistics
 ds_theme_set()
 
